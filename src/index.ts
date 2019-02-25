@@ -3,6 +3,8 @@ import cors from "cors";
 import * as ocr from "./analyzer";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
+import path from "path";
+
 dotenv.config();
 
 const port = process.env.PORT;
@@ -24,6 +26,10 @@ app.get("/ocr", (req, res) => {
   ocr.analyze(img, (result: any) => {
     res.json(result);
   });
+});
+
+app.get('/', function(req, res) {
+  res.sendFile(path.join(__dirname + '/index.html'));
 });
 
 app.post("/ocr", (req, res) => {
